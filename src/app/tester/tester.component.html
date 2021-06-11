@@ -1,0 +1,362 @@
+<div class="container">
+    <div class="row" [ngSwitch]="optionMenu" >
+        <div class="col-sm-4">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" (click)="onSelectState('newJob')" >งานใหม่</button>
+                <button type="button" class="btn btn-primary" (click)="onSelectState('editJob')" >งานแก้ไข</button>
+                <button type="button" class="btn btn-primary" (click)="onSelectState('totalJob')" >สรุปงาน</button>
+                <button type="button" class="btn btn-primary" (click)="onSelectState('profile')" >ข้อมูลส่วนตัว</button>
+            </div>
+        </div>
+
+        <section *ngSwitchCase="'test'" >
+
+        <div class="col-sm-8">
+
+                <div class="card bg-light">
+                <article class="card-body mx-auto" style="max-width: 400px;">
+                    <h4 class="card-title mt-3 text-center">ตรวจประเมินเว็บไซต์</h4>
+                                        <p class="text-center">ตรวจสอบการเข้าถึงและใช้ประโยชน์ได้ของเว็บไซต์ด้วย Test case</p>
+                    <p>
+                        <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>  www.nstda.or.th</a>
+                        <a href="http://webcheck.aaa.in.th/" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   ผลการตรวจสอบจากระบบอัตโนมัติ</a>
+                    </p>
+                    <p class="divider-text">
+                        <span class="bg-light">หน่วยงาน: สำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติ</span>
+                    </p>
+                    <p class="divider-text">
+                        <span class="bg-light">ตรวจประเมินเว็บไซต์โดย: {{this.usertest }}</span>
+                    </p>
+
+
+                    <ng-select #category_1
+  [items]="tCase"
+  bindLabel="name"
+  placeholder="Select TestCase"
+  [(ngModel)]="selectedCase"  (change)="getBothValues($event)" >
+</ng-select>
+
+                </article>
+            </div>
+            
+
+        </div>
+
+        <div class="col-sm-4">
+<h2>test case {{this.caseTest.TestcaseID}}</h2>            
+<h2>วัตถุประสงค์</h2>
+<p>
+    {{this.caseTest.Purpose }}
+</p>
+
+<h2>เงื่อนไขการตรวจ</h2>
+<p>
+    {{this.caseTest.Prerequisite }}
+</p>
+
+        </div>
+        <div class="col-sm-8">
+<h2>ขั้นตอนการตรวจสอบ</h2>
+<p>
+    {{ this.caseTest.TestSteps }}
+</p>
+
+<h2>ข้อมูลที่ใช้</h2>
+<p>
+    {{this.caseTest.TestData }}
+</p>
+
+<h2>ผลการตรวจสอบที่คาดหวัง</h2>
+<p>
+    {{ this.caseTest.ExpectedResults }}
+</p>
+
+<h2>หมายเหตุ</h2>
+<p>
+    {{this.caseTest.Comments }}
+</p>
+<h2>ผลการตรวจสอบ</h2>
+<div class="btn-group">
+    <button type="button" class="btn btn-primary" >pass</button>
+    <button type="button" class="btn btn-primary" >fail</button>
+</div>
+
+<h2>ความเห็นเพิ่มเติม</h2>
+<form
+name="form"
+(ngSubmit)=" onSubmit()">
+    
+ <div class="form-group input-group">
+    <input
+    type="text"
+    placeholder="ข้อเสนอแนะ/ปรับปรุง" 
+    class="form-control"
+    name="cm"
+    [(ngModel)]="form.cm"
+  />
+
+</div>
+<br>
+<div class="form-group">
+    <button type="submit" class="btn btn-primary btn-block"> บันทึกข้อมูล </button>
+</div> 
+</form>
+
+        </div>
+    </section>
+
+    <section *ngSwitchCase="'newJob'">
+        <div class="col-sm-8">
+
+            <div class="card bg-light">
+            <article class="card-body mx-auto" style="max-width: 400px;">
+                <h4 class="card-title mt-3 text-center">งานใหม่</h4>
+                                    <p class="text-center">งานใหม่ของคุณ {{this.usertest }}</p>
+                                    <table class="table table-borderless">
+                                        <thead>
+                                          <tr>
+                                            <th>ข้อมูล</th>
+                                            <th>รายละเอียด</th>
+                                            <th>หมายเหตุ</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td>งานที่ 1</td>
+                                            <td>https://www.nstda.or.th</td>
+                                            <td>หน้าแรกเว็บไซต์</td>
+                                          </tr>
+                                          <tr>
+                                            <td>งานที่ 2</td>
+                                            <td>https://www.nstda.or.th/home/news/pr</td>
+                                            <td>ข่าวประชาสัมพันธ์ - NSTDA</td>
+                                          </tr>
+                                          <tr>
+                                            <td>งานที่ 3</td>
+                                            <td>https://www.nstda.or.th/th/social-research</td>
+                                            <td>งานเพื่อสังคม - National Science and Technology Development Agency : NSTDA - Thailand</td>
+                                          </tr>
+                                          <tr>
+                                            <td>งานที่ 4</td>
+                                            <td>https://www.nstda.or.th/th/nstda-knowledge/13054-covid-19</td>
+                                            <td>ไวรัสโคโรนา COVID-19 - National Science and Technology Development Agency : NSTDA - Thailand</td>
+                                          </tr>
+                                          <tr>
+                                            <td>งานที่ 5</td>
+                                            <td>https://www.nstda.or.th/th/all-newsletter/183-nstda-newsletter/13698-nstda-newsletter-y06-10-2021-january</td>
+                                            <td>จดหมายข่าว สวทช. ปีที่ 6 ฉบับที่ 10 ประจำเดือนมกราคม 2564 - National Science and Technology Development Agency : NSTDA - Thailand</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+
+            </article>
+        </div>
+        
+    </div>
+
+    <div class="col-sm-4">
+
+    </div>
+
+    <div class="col-sm-8">
+        <div class="row" >
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-primary">จัดการงาน</button>
+            </div>
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-primary">แจ้งปัญหางาน</button>
+            </div>
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-primary">ขอความช่วยเหลือ</button>
+            </div>
+
+        </div>
+    </div>
+
+    </section>
+
+    <section *ngSwitchCase="'editJob'">
+        <div class="col-sm-8">
+
+            <div class="card bg-light">
+            <article class="card-body mx-auto" style="max-width: 400px;">
+                <h4 class="card-title mt-3 text-center">งานแก้ไข</h4>
+                                    <p class="text-center">งานตรวจสอบใหม่ของคุณ {{this.usertest }}</p>
+                                    <table class="table table-borderless">
+                                        <thead>
+                                          <tr>
+                                            <th>ข้อมูล</th>
+                                            <th>รายละเอียด</th>
+                                            <th>หมายเหตุ</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+
+            </article>
+        </div>
+        
+    </div>
+
+    <div class="col-sm-4">
+
+    </div>
+
+    <div class="col-sm-8">
+        <div class="row" >
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-primary">ตรวจประเมินงานใหม่</button>
+            </div>
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-primary">ข้อมูลไม่อนุมัติงาน</button>
+            </div>
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-primary">ขอความช่วยเหลือ</button>
+            </div>
+
+        </div>
+    </div>
+
+    </section>
+
+    <section *ngSwitchCase="'totalJob'">
+        <div class="col-sm-8">
+
+            <div class="card bg-light">
+            <article class="card-body mx-auto" style="max-width: 400px;">
+                <h4 class="card-title mt-3 text-center">สรุปงาน</h4>
+                                    <p class="text-center">สรุปงานของคุณ {{this.usertest }}</p>
+
+                                    <table class="table table-borderless">
+                                        <thead>
+                                          <tr>
+                                            <th>รายการ</th>
+                                            <th>จำนวน</th>
+                                            <th>หมายเหตุ</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td>งานใหม่</td>
+                                            <td>5 งาน</td>
+                                            <td>งานตรวจสอบเว็บไซต์ที่ได้รับมอบหมายใหม่</td>
+                                          </tr>
+                                          <tr>
+                                            <td>งานรอการแก้ไข</td>
+                                            <td>0 งาน</td>
+                                            <td>งานที่รอการตรวจสอบใหม่อีกครั้ง</td>
+                                          </tr>
+                                          <tr>
+                                            <td>งานที่เสร็จแล้ว</td>
+                                            <td>0 งาน</td>
+                                            <td>งานที่ทำเสร็จแล้ว</td>
+                                          </tr>
+                                          <tr>
+                                            <td>งานตรวจสอบเว็บไซต์ทั้งหมด</td>
+                                            <td>5 งาน</td>
+                                            <td>สรุปงานรวมทั้งหมด</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+
+            </article>
+        </div>
+        
+    </div>
+
+    <div class="col-sm-4">
+
+    </div>
+
+    <div class="col-sm-8">
+        <div class="row" >
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-primary">จัดการงาน</button>
+            </div>
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-primary">แจ้งปัญหางาน</button>
+            </div>
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-primary">ขอความช่วยเหลือ</button>
+            </div>
+
+        </div>
+    </div>
+
+    </section>
+
+    <section *ngSwitchCase="'profile'">
+        <div class="col-sm-8">
+
+            <div class="card bg-light">
+            <article class="card-body mx-auto" style="max-width: 400px;">
+                <h4 class="card-title mt-3 text-center">ข้อมูลผู้ใช้</h4>
+                                    <p class="text-center">ข้อมูลผู้ใช้ของคุณ {{this.usertest }}</p>
+                                    <table class="table table-borderless">
+                                        <thead>
+                                          <tr>
+                                            <th>ข้อมูล</th>
+                                            <th>รายละเอียด</th>
+                                            <th>หมายเหตุ</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td>ชื่อ-นามสกุล</td>
+                                            <td>{{ this.usertest }} </td>
+                                            <td>ชื่อผู้ตรวจประเมินเว็บไซต์</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Email</td>
+                                            <td>{{this.email}}</td>
+                                            <td>E-Mail ผู้ตรวจสอบเว็บไซต์   </td>
+                                          </tr>
+                                          <tr>
+                                            <td>โทรศัพท์</td>
+                                            <td>{{ this.phone }}</td>
+                                            <td>หมายเลขโทรศัพท์ผู้ตรวจสอบเว็บไซต์</td>
+                                          </tr>
+                                          <tr>
+                                            <td>หน่วยงาน</td>
+                                            <td>สำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติ</td>
+                                            <td>หน่วยงานที่ผู้ตรวจสอบเว็บไซต์สังกัด</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+
+            </article>
+        </div>
+        
+    </div>
+
+    <div class="col-sm-4">
+
+    </div>
+
+    <div class="col-sm-8">
+        <div class="row" >
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-primary">แก้ไขข้อมูลส่วนตัว</button>
+            </div>
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-primary">เพิ่มข้อมูลส่วนตัว</button>
+            </div>
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-primary">เปลี่ยนรหัสผ่าน</button>
+            </div>
+
+        </div>
+    </div>
+
+
+    </section>
+
+    </div>
+</div>
+
