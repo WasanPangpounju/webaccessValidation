@@ -1,0 +1,280 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" (click)="onSelectState('login')" >Login</button>
+                <button type="button" class="btn btn-primary" (click)="onSelectState('register')" >Register</button>
+                <button type="button" class="btn btn-primary">Support</button>
+            </div>
+        </div>
+        <div class="col-sm-8">
+
+                <article 
+                *ngIf="reg"
+                class="card-body mx-auto" style="max-width: 400px;">
+                    <h4 class="card-title mt-3 text-center">Create Account</h4>
+                    <p class="text-center">สมัครใช้บริการระบบตรวจสอบการเข้าถึงและใช้ประโยชน์ได้ของเว็บไซต์</p>
+                    <p>
+                        <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
+                        <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>
+                    </p>
+                    <p class="divider-text">
+                        <span class="bg-light">สมัครสมาชิก</span>
+                    </p>
+
+                    <form
+                    name="formregister"
+                    (ngSubmit)="f.form.valid && onRegister()"
+                    #f="ngForm"
+                    novalidate
+                  >
+              
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                         </div>
+
+                        <input
+                        type="text"
+                        class="form-control"
+                        name="fname"
+                        placeholder="Full name" 
+                        [(ngModel)]="formregister.fname"
+                        required
+                        minlength="3"
+                        maxlength="20"
+                        #fname="ngModel"
+                      />
+                      <div class="alert-danger" *ngIf="fname.errors && f.submitted">
+                        <div *ngIf="fname.errors.required">Name is required</div>
+                        <div *ngIf="fname.errors.minlength">
+                          Name must be at least 3 characters
+                        </div>
+                        <div *ngIf="fname.errors.maxlength">
+                          Name must be at most 20 characters
+                        </div>
+                      </div>
+
+                        </div>
+                     <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-envelope"></i></span>
+                         </div>
+
+                        <input
+                        type="email"
+                        class="form-control"
+                        name="email"
+                        placeholder="Email address" 
+                        [(ngModel)]="formregister.email"
+                        required
+                        email
+                        #email="ngModel"
+                      />
+                      <div class="alert-danger" *ngIf="email.errors && f.submitted">
+                        <div *ngIf="email.errors.required">Email is required</div>
+                        <div *ngIf="email.errors.email">
+                          Email must be a valid email address
+                        </div>
+                      </div>
+              
+                    </div>
+                     <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+                        </div>
+
+                        <select class="custom-select" style="max-width: 120px;" 
+                        name="nPhone" 
+                        [(ngModel)]="formregister.nPhone"
+                        #nPhone="ngModel"
+                        >
+
+                            <option selected="">โทรศัพท์ที่ติดต่อ</option>
+                            <option value="โทรศัพท์มือถือส่วนตัว">โทรศัพท์มือถือส่วนตัว</option>
+                            <option value="โทรศัพท์มือถือที่ทำงาน">โทรศัพท์มือถือที่ทำงาน</option>
+                            <option value="โทรศัพท์สำนักงาน">โทรศัพท์สำนักงาน</option>
+                        </select>
+               
+                        <input
+                        type="tel"
+                        class="form-control"
+                        name="phone"
+                        placeholder="Phone number" 
+                        [(ngModel)]="formregister.phone"
+                        required
+                        minlength="10"
+                        #phone="ngModel"
+                      />
+                      <div class="alert-danger" *ngIf="phone.errors && f.submitted">
+                        <div *ngIf="phone.errors.required">Phone is required</div>
+                        <div *ngIf="phone.errors.minlength">
+                          Phone  must be at least 10 characters
+                        </div>
+                      </div>
+              
+
+                    </div>
+                     <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+                        </div>
+
+                        <select class="form-control" 
+                        name="org" 
+                        [(ngModel)]="formregister.org"
+                        #org="ngModel"
+                        >
+                            <option selected="">ประเภทหน่วยงาน</option>
+                            <option value="ราชการ">ราชการ</option>
+                            <option value="รัฐวิสาหกิจ">รัฐวิสาหกิจ</option>
+                            <option value="บริษัทเอกชน">บริษัทเอกชน</option>
+                            <option value="องค์กรอิสระ">องค์กรอิสระ</option>
+                            <option value="มูลนิธิ">มูลนิธิ</option>
+                            <option value="สมาคม">สมาคม</option>
+                            <option value="ชมรม">ชมรม</option>
+                            <option value="องค์กรไม่แสวงหาผลกำไร">องค์กรไม่แสวงหาผลกำไร</option>
+                            <option value="สาธารณกุศล">สาธารณกุศล</option>
+                        </select>
+                    </div>
+                     <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+
+                        <input
+                        type="password"
+                        class="form-control"
+                        name="password"
+                        placeholder="Password " 
+                        [(ngModel)]="formregister.password"
+                        required
+                        minlength="6"
+                        #password="ngModel"
+                      />
+                      <div class="alert-danger" *ngIf="password.errors && f.submitted">
+                        <div *ngIf="password.errors.required">Password is required</div>
+                        <div *ngIf="password.errors.minlength">
+                          Password must be at least 6 characters
+                        </div>
+                      </div>
+              
+                    </div>
+                     <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+
+                        <input
+                        type="password"
+                        class="form-control"
+                        name="password1"
+                        placeholder="Repeat password" 
+                        [(ngModel)]="formregister.password1"
+                        required
+                        minlength="6"
+                        #password1="ngModel"
+                      />
+                      <div class="alert-danger" *ngIf="password1.errors && f.submitted">
+                        <div *ngIf="password1.errors.required">Password is required</div>
+                        <div *ngIf="password1.errors.minlength">
+                          Password must be at least 6 characters
+                        </div>
+                      </div>
+              
+                    </div> 
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
+                    </div> 
+                    <p class="text-center">Have an account? <a href="">Log In</a> </p>                                                                 
+                </form>
+                </article>
+                
+                
+        </div>
+
+          
+            <div 
+            *ngIf="!reg"
+            class="card bg-light">
+                <article class="card-body mx-auto" style="max-width: 400px;">
+                    <h4 class="card-title mt-3 text-center">Log in</h4>
+                    <p class="text-center">ลงชื่อเข้าใช้ระบบตรวจสอบการเข้าถึงและใช้ประโยชน์ได้ของเว็บไซต์</p>
+                    <p>
+                        <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
+                        <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>
+                    </p>
+                    <p class="divider-text">
+                        <span class="bg-light">OR</span>
+                    </p>
+                    <form
+                    name="form"
+(ngSubmit)="f.form.valid && onSubmit()"
+#f="ngForm"
+novalidate
+>
+                        
+                     <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                         </div>
+                        <input
+                        type="email"
+                        placeholder="Email address" 
+                        class="form-control"
+                        name="username"
+                        [(ngModel)]="form.username"
+                        required
+                        #username="ngModel"
+                      />
+
+                      <div
+                      class="alert alert-danger"
+                      role="alert"
+                      *ngIf="username.errors && f.submitted"
+                    >
+                      Username is required!
+                    </div>
+                  
+                    </div>
+
+                     <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input
+                        type="password"
+                        class="form-control"
+                        name="password"
+                        placeholder="password" 
+                        [(ngModel)]="form.password"
+                        required
+                        minlength="6"
+                        #password="ngModel"
+                      />
+
+                      <div
+                      class="alert alert-danger"
+                      role="alert"
+                      *ngIf="password.errors && f.submitted"
+                    >
+                  
+                      <div *ngIf="password.errors.required">Password is required</div>
+                      <div *ngIf="password.errors.minlength">
+                        Password must be at least 6 characters
+                      </div>
+                    </div>
+                  
+                  
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Login  </button>
+                    </div> 
+                    <p class="text-center">ลืมรหัสผ่าน? <a href="">Forgot Password</a> </p>                                                                 
+                </form>
+                </article>
+</div>
+
+    </div>
+</div>
