@@ -77,26 +77,27 @@ this.httpClient.get('http://localhost:8000/api/users/'+ username).subscribe( asy
   await localStorage.setItem('org', this.Users[0].org);
 
 
-  } )
  
  let usertype = localStorage.getItem('usertype');
 
  if(usertype != null && username === this.Users[0].email && password === this.Users[0].password) {
  if(usertype === 'tester'){
    //localStorage.clear();
-   alert('tester ' + this.Users[0].name);
+//   alert('tester ' + this.Users[0].name);
       this.router.navigateByUrl('/tester');
  } else if(usertype === 'member'){
    //localStorage.clear();
-   alert('member');
+//   alert('member');
       this.router.navigateByUrl('/member');
  } else if(usertype === 'admin'){
    //localStorage.clear();
-   alert('admin');
+//   alert('admin');
    //   this.router.navigateByUrl('/admin');
  }
  }
- 
+
+} )
+
 //  alert(this.Users[0].name);
 //alert(JSON.stringify( this.authService.login(username, password)  ));
 

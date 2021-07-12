@@ -31,11 +31,14 @@ export class TesterComponent {
 caseTest: any;
   selectedCase: any;
   tCase: any;
+result: any;
 
   getBothValues(v1: any): void {
     console.log(this.selectedCase.id);
     alert(JSON.stringify(this.selectedCase.id) );
-    this.caseTest = this.testCase.find(o => o.TestcaseID === this.selectedCase.id)
+    localStorage.setItem('uTestcaseId', this.selectedCase.id);
+
+    this.caseTest = this.testCased.find(o => o.TestcaseID === this.selectedCase.id)
   }  
 
 usertest = '';
@@ -63,7 +66,10 @@ this.org = localStorage.getItem('org');
 this.httpClient.get('http://localhost:8000/api/testcases/').subscribe( async (res)  => {
 this.testCased = await res;
 this.tCase = await this.getOrders()
-this.caseTest = await this.testCased[0];
+
+if(localStorage.getItem('uTestcaseId') ){
+  this.caseTest = await this.testCased[0];
+}
 
   });
 
@@ -112,8 +118,38 @@ async getOrders() {
   return await tList;
  }
 
+ onResult(r){
+//this.result = r;
+if(r === 'pass'){
+  this.result = true;
+} else {
+  this.result = false;
+}
+//alert(this.result);
+ }
+
+ url = 'www.nstda.or.th';
+userComment = '';
+
 onSubmit(){
-  alert('test');
+//  alert('test'+ this.result);
+//alert(Date());
+let saveData =     {
+  Url: this.url,
+Usertest: this.usertest,
+UserComment: this.userComment,
+TestDate: Date(),
+  TestcaseID: this.caseTest.TestcaseID ,
+  Purpose: this.caseTest .Purpose ,
+  Prerequisite: this.caseTest .Prerequisite,
+  TestData: this.caseTest .TestData,
+  TestSteps: this.caseTest .TestSteps,
+  ExpectedResults: this.caseTest .ExpectedResults,
+  Result: this.result,
+  Comments: this.caseTest .Comments
+};
+
+
 //  this.router.navigateByUrl('/admin');
 }
 

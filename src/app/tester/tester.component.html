@@ -76,9 +76,16 @@
     {{this.caseTest.Comments }}
 </p>
 <h2>ผลการตรวจสอบ</h2>
+<p *ngIf="result">
+  การประเมินการเข้าถึงและใช้ประโยชน์ได้ตามกรณีทดสอบ {{this.caseTest.TestcaseID}} ผ่าน
+</p>
+<p *ngIf="!result">
+  การประเมินการเข้าถึงและใช้ประโยชน์ได้ตามกรณีทดสอบ {{this.caseTest.TestcaseID}} ไม่ผ่าน กรุณาให้แนวทางหรือคำแนะนำในการแก้ไขปรับปรุง
+  </p>
+  
 <div class="btn-group">
-    <button type="button" class="btn btn-primary" >pass</button>
-    <button type="button" class="btn btn-primary" >fail</button>
+    <button type="button" class="btn btn-primary" (click)="onResult('pass')" >pass</button>
+    <button type="button" class="btn btn-primary" (click)="onResult('fail')" >fail</button>
 </div>
 
 <h2>ความเห็นเพิ่มเติม</h2>
