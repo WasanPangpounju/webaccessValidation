@@ -1,7 +1,7 @@
 import {Injectable, Component, OnInit } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
-import { TestBed } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 
 import {TokenStorageService} from '../users/token-storage.service';
 import { Router } from '@angular/router';
@@ -31,11 +31,12 @@ export class TesterComponent {
 caseTest: any;
   selectedCase: any;
   tCase: any;
+  
 result: any;
 
   getBothValues(v1: any): void {
     console.log(this.selectedCase.id);
-    alert(JSON.stringify(this.selectedCase.id) );
+//    alert(JSON.stringify(this.selectedCase.id) );
     localStorage.setItem('uTestcaseId', this.selectedCase.id);
 
     this.caseTest = this.testCased.find(o => o.TestcaseID === this.selectedCase.id)
@@ -48,31 +49,105 @@ org = '';
 optionMenu = '';
 
 testCased: any;
+caseRes: any;
+
+url = '203.185.137.194/aol';
+userComment = '';
+qdata = false;
 
   constructor( private formBuilder: FormBuilder , private router: Router, public httpClient: HttpClient ) {
 //    this.tCase = this.getOrders()
 //    this.caseTest = this.testCase[0];
   
 //this.usertest = localStorage.getItem('name') + ' ' + localStorage.getItem('lastname');   
+
+this.optionMenu = 'loaddata';
+
+//Query Testcase Data 
+this.httpClient.get('http://localhost:8000/api/testcases/').subscribe( async (res)  => {
+this.testCased = await res;
+this.qdata = true;
+
+ });
+
+ //end constructor
   }
 
   ngOnInit(): void {
-this.optionMenu = 'test';
+//this.optionMenu = 'test';
+this.url = localStorage.getItem('jobUrl'); 
 this.usertest = localStorage.getItem('name') + ' ' + localStorage.getItem('lastname');   
 this.email = localStorage.getItem('email');
 this.phone = localStorage.getItem('phone');
 this.org = localStorage.getItem('org');
+this.caseRes = this.checkResult();
 
-this.httpClient.get('http://localhost:8000/api/testcases/').subscribe( async (res)  => {
-this.testCased = await res;
-this.tCase = await this.getOrders()
+ 
+//query data - testcase result
+try{
+ 
+this.httpClient.get('http://localhost:8000/api/testresult/'+ this.url.replace('/', '`') ).subscribe( async (res)  => {
+  var testresult = await res;
+var result_list = [];
+var tList = [];
 
-if(localStorage.getItem('uTestcaseId') ){
-  this.caseTest = await this.testCased[0];
+
+for( var rt in testresult){
+//  alert(testresult[rt].TestcaseID);
+  await result_list.push({id: testresult[rt].TestcaseID});
+  //alert(result_list);
 }
 
-  });
+var s = true;
 
+for( let item of this.testCased){
+  for(let t of result_list){
+    if(item.TestcaseID.toString() == t.id ){
+s = !s;
+      break;
+    }
+s = true;
+  }
+
+  if(s === true){
+    await tList.push({id: item.TestcaseID , name: item.Purpose})
+}
+//s = !s
+              
+
+}
+
+ this.tCase = await tList;
+
+ if(localStorage.getItem('uTestcaseId') ){
+//  this.caseTest = await this.testCased[0];
+//  alert(this.tCase[0].id);
+  this.caseTest = this.testCased.find(o => o.TestcaseID === this.tCase[0].id)
+
+}
+
+this.optionMenu = await 'test';
+
+});
+
+ 
+}
+catch (error) {
+  alert(error.message);
+}
+// this.httpClient.get('http://localhost:8000/api/testcases/').subscribe( async (res)  => {
+// this.testCased = await res;
+
+// this.tCase = await this.getOrders()
+
+// if(localStorage.getItem('uTestcaseId') ){
+// //  this.caseTest = await this.testCased[0];
+// //  alert(this.tCase[0].id);
+//   this.caseTest = this.testCased.find(o => o.TestcaseID === this.tCase[0].id)
+
+// }
+
+//  });
 
   }
 
@@ -110,11 +185,27 @@ if(localStorage.getItem('uTestcaseId') ){
   ]
 
 async getOrders() {
-
   var tList = [];
+var restemp = await this.caseRes;
+
+var s = true;
   for( let item of this.testCased){
-    await tList.push({id: item.TestcaseID , name: item.Purpose})
+//        await tList.push({id: item.TestcaseID , name: item.Purpose})
+        for(let t of restemp){
+          if(item.TestcaseID.toString() == t.id ){
+s = !s;
+            break;
+          }
+    s = true;
+        }
+
+        if(s === true){
+          await tList.push({id: item.TestcaseID , name: item.Purpose})
   }
+  //s = !s
+                    
+  }
+
   return await tList;
  }
 
@@ -128,11 +219,9 @@ if(r === 'pass'){
 //alert(this.result);
  }
 
- url = 'www.nstda.or.th';
-userComment = '';
 
 onSubmit(){
-//  alert('test'+ this.result);
+  //alert('test'+ this.result);
 //alert(Date());
 let saveData =     {
   Url: this.url,
@@ -148,6 +237,15 @@ TestDate: Date(),
   Result: this.result,
   Comments: this.caseTest .Comments
 };
+//alert(saveData.Comments );
+this.optionMenu = 'loaddata';
+
+this.httpClient.post<any>('http://localhost:8000/api/result' , saveData ).subscribe( async data => {
+//alert(JSON.stringify(data) );
+this.optionMenu = await 'test';
+
+   await window.location.reload();
+});
 
 
 //  this.router.navigateByUrl('/admin');
@@ -167,4 +265,37 @@ onSelectState(s: string){
  }
 }
 
+async checkResult() {
+  var result_list = [];
+
+  this.httpClient.get('http://localhost:8000/api/testresult/'+ this.url.replace('/', '`') ).subscribe( async (res)  => {
+    var testresult = await res;
+   //alert(JSON.stringify(testresult) );
+//alert(testresult[1].TestcaseID);
+for( var rt in testresult){
+  //alert(testresult[rt].TestcaseID);
+  await result_list.push({id: testresult[rt].TestcaseID});
+
+  //alert(result_list);
+}
+}); 
+  
+
+//   this.httpClient.post<any>('http://localhost:8000/api/testcase_result' ,  { Url: this.url } ).subscribe(data => {
+// //alert(JSON.stringify(data) );
+// alert(data.length)
+// });
+// //await alert(JSON.stringify(result_list) );
+
+return await result_list;
+}
+
+onUrl(jobUrl){
+//  alert(jobUrl);
+  localStorage.setItem('jobUrl', jobUrl);
+  this.tCase = this.getOrders()
+
+  window.location.reload();
+
+}
 }

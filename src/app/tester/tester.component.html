@@ -18,11 +18,11 @@
                     <h4 class="card-title mt-3 text-center">ตรวจประเมินเว็บไซต์</h4>
                                         <p class="text-center">ตรวจสอบการเข้าถึงและใช้ประโยชน์ได้ของเว็บไซต์ด้วย Test case</p>
                     <p>
-                        <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>  www.nstda.or.th</a>
+                        <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>  {{this.url}}</a>
                         <a href="http://webcheck.aaa.in.th/" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   ผลการตรวจสอบจากระบบอัตโนมัติ</a>
                     </p>
                     <p class="divider-text">
-                        <span class="bg-light">หน่วยงาน: สำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติ</span>
+                        <span class="bg-light">หน่วยงานผู้ตรวจสอบ:  สำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติ</span>
                     </p>
                     <p class="divider-text">
                         <span class="bg-light">ตรวจประเมินเว็บไซต์โดย: {{this.usertest }}</span>
@@ -129,27 +129,27 @@ name="form"
                                         </thead>
                                         <tbody>
                                           <tr>
-                                            <td>งานที่ 1</td>
-                                            <td>https://www.nstda.or.th</td>
-                                            <td>หน้าแรกเว็บไซต์</td>
+                                            <td>    <button type="button" class="btn btn-primary" (click)="onUrl('203.185.137.194/aol')" >งานที่ 1</button></td>
+                                            <td>https://203.185.137.194/aol</td>
+                                            <td>คลังสื่ออิเล็กทรอนิกส์</td>
                                           </tr>
                                           <tr>
-                                            <td>งานที่ 2</td>
+                                            <td>    <button type="button" class="btn btn-primary" (click)="onUrl('www.nstda.or.th/home/news/pr')" >งานที่ 2</button></td>
                                             <td>https://www.nstda.or.th/home/news/pr</td>
                                             <td>ข่าวประชาสัมพันธ์ - NSTDA</td>
                                           </tr>
                                           <tr>
-                                            <td>งานที่ 3</td>
+                                            <td>    <button type="button" class="btn btn-primary" (click)="onUrl('www.nstda.or.th/th/social-research')" >งานที่ 3</button></td>
                                             <td>https://www.nstda.or.th/th/social-research</td>
                                             <td>งานเพื่อสังคม - National Science and Technology Development Agency : NSTDA - Thailand</td>
                                           </tr>
                                           <tr>
-                                            <td>งานที่ 4</td>
+                                            <td>    <button type="button" class="btn btn-primary" (click)="onUrl('www.nstda.or.th/th/nstda-knowledge/13054-covid-19')" >งานที่ 4</button></td>
                                             <td>https://www.nstda.or.th/th/nstda-knowledge/13054-covid-19</td>
                                             <td>ไวรัสโคโรนา COVID-19 - National Science and Technology Development Agency : NSTDA - Thailand</td>
                                           </tr>
                                           <tr>
-                                            <td>งานที่ 5</td>
+                                            <td>    <button type="button" class="btn btn-primary" (click)="onUrl('www.nstda.or.th/th/all-newsletter/183-nstda-newsletter/13698-nstda-newsletter-y06-10-2021-january')" >งานที่ 5</button></td>
                                             <td>https://www.nstda.or.th/th/all-newsletter/183-nstda-newsletter/13698-nstda-newsletter-y06-10-2021-january</td>
                                             <td>จดหมายข่าว สวทช. ปีที่ 6 ฉบับที่ 10 ประจำเดือนมกราคม 2564 - National Science and Technology Development Agency : NSTDA - Thailand</td>
                                           </tr>
@@ -361,6 +361,21 @@ name="form"
         </div>
     </div>
 
+
+    </section>
+
+
+    <section *ngSwitchCase="'loaddata'">
+        <div class="col-sm-8">
+
+            <div class="card bg-light">
+            <article class="card-body mx-auto" style="max-width: 400px;">
+                <h4 class="card-title mt-3 text-center">ระบบกำลังประมวลผลข้อมูล</h4>
+                                    <p class="text-center">หากระบบมีการประมวลผลข้อมูลนานเกินไป กรุณาทำการ Refresh หน้าเว็บไซต์</p>
+            </article>
+        </div>
+        
+    </div>
 
     </section>
 

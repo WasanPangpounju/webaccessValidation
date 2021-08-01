@@ -20,6 +20,12 @@ export class MemberComponent implements OnInit {
   
   testResult: any;
 url = '203.185.137.194`aol';
+TestDate = '';
+TestcaseID = '';
+testPurpose = '';
+testPrerequisite = '';
+Result = '';
+testUserComment = '';
 
   constructor(public httpClient: HttpClient ) { }
 
@@ -36,14 +42,25 @@ this.org = localStorage.getItem('org');
   onSelectState(s: string){
     if(s === 'info'){
       this.optionMenu = 'info';
+      
     }  else if(s === 'report'){
       this.optionMenu = 'report';
 
-      alert(this.url);
+      //alert(this.url);
       this.httpClient.get('http://localhost:8000/api/testresult/'+ this.url ).subscribe( async (res)  => {
         var testresult = await res;
-       alert(testresult);
-      
+       //alert(JSON.stringify(testresult) );
+       //alert(testresult[0].Url );
+    this.testResult = await res;
+//       alert(this.testResult.length );
+//       this.url = this.testResult[0].Url;
+// this.TestDate = this.testResult[0].TestDate;
+// this.TestcaseID = this.testResult[0].TestcaseID;
+// this.testPurpose = this.testResult[0].Purpose;
+// this.testPrerequisite = this.testResult[0].Prerequisite;
+// this.Result = this.testResult[0].Result;
+// this.testUserComment = this.testResult[0].UserComment;
+
       }); 
       
 //       this.httpClient.get('http://localhost:8000/api/testresult/' + this.url).subscribe( async (res)  => {

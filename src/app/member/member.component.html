@@ -1,7 +1,7 @@
 <div class="container">
       <div class="row" [ngSwitch]="optionMenu" >
 
-        <div class="col-sm-4">
+        <div class="col-sm-12">
             <div class="btn-group">
                 <button type="button" class="btn btn-primary" (click)="onSelectState('info')" >ข้อมูลเว็บไซต์</button>
                 <button type="button" class="btn btn-primary" (click)="onSelectState('report')" >ผลการตรวจสอบ</button>
@@ -75,7 +75,7 @@
                 <tbody>
                   <tr>
                     <td>Web Domain</td>
-                    <td>nstda.or.th</td>
+                    <td>203.185.137.194</td>
                     <td>โดเมนต์เว็บไซต์ที่ลงทะเบียนตรวจสอบ</td>
                   </tr>
                   <tr>
@@ -85,7 +85,7 @@
                   </tr>
                   <tr>
                     <td>ตรวจสอบล่าสุด</td>
-                    <td>15-05-2021</td>
+                    <td>18-07-2021</td>
                     <td>การตรวจสอบครั้งล่าสุดจากระบบ</td>
                   </tr>
                   <tr>
@@ -95,8 +95,8 @@
                   </tr>
                   <tr>
                     <td>ผลการตรวจสอบ</td>
-                    <td>ผ่านเกณฑ์การตรวจสอบ 70%</td>
-                    <td>คำนวนจากการผ่านเกณฑ์จากจำนวนการตรวจสอบของผู้ทดสอบ</td>
+                    <td>ตรวจสอบจำนวน {{ this.testResult.length}}กรณีทดสอบ</td>
+                    <td>จากการผ่านการประเมินและตรวจสอบของผู้ทดสอบ</td>
                   </tr>
                 </tbody>
               </table>
@@ -105,6 +105,56 @@
 
             </div>
         
+          </section>
+
+          <section *ngSwitchCase="'report'" >
+            <div class="col-sm-12">
+              <div class = "card">
+                <div class = "card-body">
+                  <h4 class = "card-title">ผลการตรวจการเข้าถึงและใช้ประโยชน์ได้ของเว็บไซต์</h4>
+                  <p class="card-text">
+                    การตรวจสอบการเข้าถึงและใช้ประโยชน์ได้ของเว็บไซต์ โดยการตรวจสอบในรูปแบบการประเมินผ่านกรณีทดสอบ (Test Case) ซึ่งเป็นกระบวนการตรวจสอบซอฟต์แวร์ (Software Testing)
+                  </p>
+                  <a href="http://{{this.url}}" class = "card-link">หน้าเว็บ {{this.url}}</a>
+                  <p class="card-text">
+                    ตรวจประเมินเว็บไซต์เมื่อ {{this.TestDate}}
+                  </p>
+                </div>
+              </div>
+                        
+            </div>
+
+
+            <div class="col-sm-12">
+              <div class="card bg-light">
+                <article >
+                      <h4 class="card-title mt-3 text-center">รายงานการตรวจสอบ</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>กรณีทดสอบ</th>
+                            <th>วัตถุประสงค์</th>
+                            <th>เงื่อนไขการตรวจ</th>
+                            <th>ผล</th>
+                            <th>ความเห็นจากผู้ทดสอบ</th>
+                          </tr>
+                        </thead>
+                        <tbody *ngFor="let r of this.testResult">
+                          <tr>
+                            <td>{{ r.TestcaseID }}</td>
+                            <td>{{ r.Purpose }}</td>
+                            <td>{{ r.Prerequisite }}</td>
+                            <td>{{ r.Result }}</td>
+                                                        <td>{{ r.UserComment }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    
+                </article>
+              </div>
+
+            </div>
+            
           </section>
 
               
