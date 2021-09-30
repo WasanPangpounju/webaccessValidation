@@ -1,5 +1,7 @@
 import {Injectable, Component, OnInit } from '@angular/core';
 
+import { ManagementService } from '../services/management.service';
+
 import { HttpClient } from '@angular/common/http';
 import { async, TestBed } from '@angular/core/testing';
 
@@ -22,7 +24,7 @@ import {
   styleUrls: ['./tester.component.css']
 })
 export class TesterComponent {
-
+    
   form: any = {
     cm : null,
   };
@@ -48,32 +50,41 @@ phone = '';
 org = '';
 optionMenu = '';
 
+job: any;
 testCased: any;
 caseRes: any;
 
 url = '203.185.137.194/aol';
+
 userComment = '';
 qdata = false;
 
-  constructor( private formBuilder: FormBuilder , private router: Router, public httpClient: HttpClient ) {
-//    this.tCase = this.getOrders()
+  constructor( private service: ManagementService , private formBuilder: FormBuilder , private router: Router, public httpClient: HttpClient ) {
+    //    this.tCase = this.getOrders()
 //    this.caseTest = this.testCase[0];
   
 //this.usertest = localStorage.getItem('name') + ' ' + localStorage.getItem('lastname');   
 
 this.optionMenu = 'loaddata';
 
-//Query Testcase Data 
-this.httpClient.get('http://localhost:8000/api/testcases/').subscribe( async (res)  => {
-this.testCased = await res;
-this.qdata = true;
+this.service.getTestcase().subscribe( async res => {
+  this.testCased = await res;
+  //alert(this.testCased);
+ this.qdata = await true;
 
- });
+});
+
+//Query Testcase Data 
+// this.httpClient.get('http://159.203.175.109:8005/api/testcases/').subscribe( async (res)  => {
+// this.testCased = await res;
+// this.qdata = await true;
+//  });
 
  //end constructor
   }
 
   ngOnInit(): void {
+
 //this.optionMenu = 'test';
 this.url = localStorage.getItem('jobUrl'); 
 this.usertest = localStorage.getItem('name') + ' ' + localStorage.getItem('lastname');   
@@ -81,6 +92,8 @@ this.email = localStorage.getItem('email');
 this.phone = localStorage.getItem('phone');
 this.org = localStorage.getItem('org');
 this.caseRes = this.checkResult();
+
+//get job by user ID
 
  
 //query data - testcase result
@@ -253,7 +266,8 @@ this.optionMenu = await 'test';
 
 onSelectState(s: string){
  if(s === 'newJob'){
-   this.optionMenu = 'newJob';
+      this.optionMenu = 'newJob';
+      
  }  else if(s === 'editJob'){
    this.optionMenu = 'editJob';
  } else if( s === 'totalJob'){

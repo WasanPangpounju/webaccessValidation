@@ -62,7 +62,7 @@ userPassword = '';
 
 //alert(username);
 //https://jsonplaceholder.typicode.com/users
-this.httpClient.get('http://localhost:8000/api/users/'+ username).subscribe( async (res)  => {
+this.httpClient.get('http://159.203.175.109:8005/api/users/'+ username).subscribe( async (res)  => {
   //  console.log(res);   
   //alert( JSON.stringify(res));
  
