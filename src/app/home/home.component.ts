@@ -75,6 +75,7 @@ this.httpClient.get('http://159.203.175.109:8005/api/users/'+ username).subscrib
   await localStorage.setItem('nPhone', this.Users[0].nPhone);
   await localStorage.setItem('phone', this.Users[0].phone);
   await localStorage.setItem('org', this.Users[0].org);
+  await localStorage.setItem('tId', this.Users[0].id);
 
 
  

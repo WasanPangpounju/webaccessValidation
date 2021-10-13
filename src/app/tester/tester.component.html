@@ -127,31 +127,11 @@ name="form"
                                             <th>หมายเหตุ</th>
                                           </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody *ngFor="let j of this.jobList ">
                                           <tr>
-                                            <td>    <button type="button" class="btn btn-primary" (click)="onUrl('203.185.137.194/aol')" >งานที่ 1</button></td>
-                                            <td>https://203.185.137.194/aol</td>
-                                            <td>คลังสื่ออิเล็กทรอนิกส์</td>
-                                          </tr>
-                                          <tr>
-                                            <td>    <button type="button" class="btn btn-primary" (click)="onUrl('www.nstda.or.th/home/news/pr')" >งานที่ 2</button></td>
-                                            <td>https://www.nstda.or.th/home/news/pr</td>
-                                            <td>ข่าวประชาสัมพันธ์ - NSTDA</td>
-                                          </tr>
-                                          <tr>
-                                            <td>    <button type="button" class="btn btn-primary" (click)="onUrl('www.nstda.or.th/th/social-research')" >งานที่ 3</button></td>
-                                            <td>https://www.nstda.or.th/th/social-research</td>
-                                            <td>งานเพื่อสังคม - National Science and Technology Development Agency : NSTDA - Thailand</td>
-                                          </tr>
-                                          <tr>
-                                            <td>    <button type="button" class="btn btn-primary" (click)="onUrl('www.nstda.or.th/th/nstda-knowledge/13054-covid-19')" >งานที่ 4</button></td>
-                                            <td>https://www.nstda.or.th/th/nstda-knowledge/13054-covid-19</td>
-                                            <td>ไวรัสโคโรนา COVID-19 - National Science and Technology Development Agency : NSTDA - Thailand</td>
-                                          </tr>
-                                          <tr>
-                                            <td>    <button type="button" class="btn btn-primary" (click)="onUrl('www.nstda.or.th/th/all-newsletter/183-nstda-newsletter/13698-nstda-newsletter-y06-10-2021-january')" >งานที่ 5</button></td>
-                                            <td>https://www.nstda.or.th/th/all-newsletter/183-nstda-newsletter/13698-nstda-newsletter-y06-10-2021-january</td>
-                                            <td>จดหมายข่าว สวทช. ปีที่ 6 ฉบับที่ 10 ประจำเดือนมกราคม 2564 - National Science and Technology Development Agency : NSTDA - Thailand</td>
+                                            <td>    <button type="button" class="btn btn-primary" (click)="onUrl( j.Url )" >เลือกงาน</button></td>
+                                            <td>{{j.Url }}</td>
+                                            <td>{{ j.uComment }}</td>
                                           </tr>
                                         </tbody>
                                       </table>
@@ -251,7 +231,7 @@ name="form"
                                         <tbody>
                                           <tr>
                                             <td>งานใหม่</td>
-                                            <td>5 งาน</td>
+                                            <td>{{ this.jobList.length }} งาน</td>
                                             <td>งานตรวจสอบเว็บไซต์ที่ได้รับมอบหมายใหม่</td>
                                           </tr>
                                           <tr>
@@ -266,7 +246,7 @@ name="form"
                                           </tr>
                                           <tr>
                                             <td>งานตรวจสอบเว็บไซต์ทั้งหมด</td>
-                                            <td>5 งาน</td>
+                                            <td>x{{this.jobList.length }} งาน</td>
                                             <td>สรุปงานรวมทั้งหมด</td>
                                           </tr>
                                         </tbody>

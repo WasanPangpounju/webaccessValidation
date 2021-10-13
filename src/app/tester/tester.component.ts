@@ -29,7 +29,7 @@ export class TesterComponent {
     cm : null,
   };
 
-
+  jobList: any;
 caseTest: any;
   selectedCase: any;
   tCase: any;
@@ -41,9 +41,15 @@ result: any;
 //    alert(JSON.stringify(this.selectedCase.id) );
     localStorage.setItem('uTestcaseId', this.selectedCase.id);
 
-    this.caseTest = this.testCased.find(o => o.TestcaseID === this.selectedCase.id)
+    //this.caseTest = this.testCased.find(o => o.TestcaseID === this.selectedCase.id)
+    //this.caseTest = this.testCase[1];
+
+    this.caseTest = this.testCased.find(({TestcaseID }) => TestcaseID.toString() === this.selectedCase.id.toString() );
+//    alert(this.caseTest );
+//    alert(this.testCased.length);
   }  
 
+  tId = '';
 usertest = '';
 email = '';
 phone = '';
@@ -54,7 +60,7 @@ job: any;
 testCased: any;
 caseRes: any;
 
-url = '203.185.137.194/aol';
+url = '';
 
 userComment = '';
 qdata = false;
@@ -66,13 +72,13 @@ qdata = false;
 //this.usertest = localStorage.getItem('name') + ' ' + localStorage.getItem('lastname');   
 
 this.optionMenu = 'loaddata';
+  
+// this.service.getTestcase().subscribe( async res => {
+//   this.testCased = await res;
+//   //alert(this.testCased);
+//  this.qdata = await true;
 
-this.service.getTestcase().subscribe( async res => {
-  this.testCased = await res;
-  //alert(this.testCased);
- this.qdata = await true;
-
-});
+// });
 
 //Query Testcase Data 
 // this.httpClient.get('http://159.203.175.109:8005/api/testcases/').subscribe( async (res)  => {
@@ -91,63 +97,91 @@ this.usertest = localStorage.getItem('name') + ' ' + localStorage.getItem('lastn
 this.email = localStorage.getItem('email');
 this.phone = localStorage.getItem('phone');
 this.org = localStorage.getItem('org');
-this.caseRes = this.checkResult();
+this.tId = localStorage.getItem('tId');
 
-//get job by user ID
+//this.caseRes = this.checkResult();
 
- 
 //query data - testcase result
 try{
  
-this.httpClient.get('http://localhost:8000/api/testresult/'+ this.url.replace('/', '`') ).subscribe( async (res)  => {
-  var testresult = await res;
-var result_list = [];
-var tList = [];
+// this.httpClient.get('http://localhost:8000/api/testresult/'+ this.url.replace('/', '`') ).subscribe( async (res)  => {
+//   var testresult = await res;
+// var result_list = [];
+// var tList = [];
 
 
-for( var rt in testresult){
-//  alert(testresult[rt].TestcaseID);
-  await result_list.push({id: testresult[rt].TestcaseID});
-  //alert(result_list);
-}
+// for( var rt in testresult){
+// //  alert(testresult[rt].TestcaseID);
+//   await result_list.push({id: testresult[rt].TestcaseID});
+//   //alert(result_list);
+// }
 
-var s = true;
+// var s = true;
 
-for( let item of this.testCased){
-  for(let t of result_list){
-    if(item.TestcaseID.toString() == t.id ){
-s = !s;
-      break;
-    }
-s = true;
-  }
+// for( let item of this.testCased){
+//   for(let t of result_list){
+//     if(item.TestcaseID.toString() == t.id ){
+// s = !s;
+//       break;
+//     }
+// s = true;
+//   }
 
-  if(s === true){
-    await tList.push({id: item.TestcaseID , name: item.Purpose})
-}
-//s = !s
+//   if(s === true){
+//     await tList.push({id: item.TestcaseID , name: item.Purpose})
+// }
+// //s = !s
               
 
-}
+// }
 
- this.tCase = await tList;
+//  this.tCase = await tList;
 
- if(localStorage.getItem('uTestcaseId') ){
+//  if(localStorage.getItem('uTestcaseId') ){
+// //  this.caseTest = await this.testCased[0];
+// //  alert(this.tCase[0].id);
+//   this.caseTest = this.testCased.find(o => o.TestcaseID === this.tCase[0].id)
+
+// }
+
+// this.optionMenu = await 'test';
+
+// });
+
+//alert(this.url );
+
+//this.url = 'oer.aol.in.th';
+var tList = [];
+  
+this.httpClient.get('http://localhost:8005/api/jobcase/'+ this.url.replace('/', '`') ).subscribe( async (res)  => {
+  var testresult = await res;
+  this.testCased = await testresult;
+  this.caseTest = await testresult[0];
+
+  for(var cs in testresult){
+    //alert(testresult[cs].TestcaseID )
+      tList.push({id: testresult[cs].TestcaseID , name: testresult[cs].Purpose })
+
+  }
+   this.tCase = await tList;
+
+
+if(localStorage.getItem('uTestcaseId') ){
 //  this.caseTest = await this.testCased[0];
-//  alert(this.tCase[0].id);
-  this.caseTest = this.testCased.find(o => o.TestcaseID === this.tCase[0].id)
+   //  alert(this.tCase[0].id);
+//    this.caseTest = this.testCased.find(o => o.TestcaseID === this.tCase[0].id)
+       //this.caseTest = this.testCase[0];
 
-}
+   }
 
 this.optionMenu = await 'test';
-
 });
 
- 
 }
 catch (error) {
   alert(error.message);
 }
+
 // this.httpClient.get('http://localhost:8000/api/testcases/').subscribe( async (res)  => {
 // this.testCased = await res;
 
@@ -253,7 +287,7 @@ TestDate: Date(),
 //alert(saveData.Comments );
 this.optionMenu = 'loaddata';
 
-this.httpClient.post<any>('http://localhost:8000/api/result' , saveData ).subscribe( async data => {
+this.httpClient.post<any>('http://localhost:8005/api/result' , saveData ).subscribe( async data => {
 //alert(JSON.stringify(data) );
 this.optionMenu = await 'test';
 
@@ -266,6 +300,14 @@ this.optionMenu = await 'test';
 
 onSelectState(s: string){
  if(s === 'newJob'){
+ this.service.getJobList('1002').subscribe( async res => {
+var joblist  = await res;
+this.jobList = await joblist ;
+  //alert(joblist[0].Url );
+//alert(this.jobList.length );
+});
+
+  
       this.optionMenu = 'newJob';
       
  }  else if(s === 'editJob'){

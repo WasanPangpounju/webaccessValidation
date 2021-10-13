@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ManagementService {
 //private url = 'http://localhost:8000/api/';
-private url = 'http://159.203.175.109:8005/api/';
+private url = 'http://localhost:8005/api/';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -16,6 +16,12 @@ var testcase = this.httpClient.get(this.url + 'testcases/');
 return testcase;
 }
 
+getJobList(id){
+  var joblist = this.httpClient.get(this.url + 'joblist/' + id);
+  return joblist ;
+  }
+  
+  
 getJob(){
 
 }
